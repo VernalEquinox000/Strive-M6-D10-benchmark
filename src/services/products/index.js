@@ -6,6 +6,20 @@ const Products = new Model('products')
 
 const db = require("../../utils/db");
 
+// trying to GET /products/:id/reviews by JOIN
+router.get("/", async (req, res, next) => {
+    try {
+        //SELECT * FROM products JOIN reviews ON products._id = reviews.productId
+        const query = `SELECT * FROM ${products} JOIN ${reviews} ON ${products._id=reviews.productId}`;
+        const response = await this.run(query);
+        res.send(response);
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+  }
+});
+
 // GET /products
 router.get("/", async (req, res, next) => {
     try {
