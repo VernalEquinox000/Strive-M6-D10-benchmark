@@ -7,11 +7,14 @@ const Products = new Model('products')
 const db = require("../../utils/db");
 
 // trying to GET /products/:id/reviews by JOIN
-router.get("/", async (req, res, next) => {
+router.get("/:id/reviews", async (req, res, next) => {
     try {
         //SELECT * FROM products JOIN reviews ON products._id = reviews.productId
-        const query = `SELECT * FROM ${products} JOIN ${reviews} ON ${products._id=reviews.productId}`;
-        const response = await this.run(query);
+        //const query = `SELECT * FROM ${reviews} JOIN ${this.name} ON ${reviews.productId=this.name.id} WHERE ${review.productId}=${parseInt(id)} `;
+        //const query=`SELECT * FROM reviews JOIN ${this.name} ON ${this.name}.id=reviews.productId`
+        const query= `SELECT * FROM products JOIN reviews ON products._id = reviews.productId WHERE products._id=${req.params.id}`
+        //SELECT * FROM reviews AS r, products AS p WHERE r.product_id = p.id AND p.id=${productId}
+        const response = await db.query(query);
         res.send(response);
     }
     catch (error) {
