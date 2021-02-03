@@ -12,7 +12,7 @@ router.get("/:id/reviews", async (req, res, next) => {
         //SELECT * FROM products JOIN reviews ON products._id = reviews.productId
         //const query = `SELECT * FROM ${reviews} JOIN ${this.name} ON ${reviews.productId=this.name.id} WHERE ${review.productId}=${parseInt(id)} `;
         //const query=`SELECT * FROM reviews JOIN ${this.name} ON ${this.name}.id=reviews.productId`
-        const query= `SELECT * FROM products JOIN reviews ON products._id = reviews.productId WHERE products._id=${req.params.id}`
+        const query= `SELECT _id, name, description, brand, imageUrl, category, comment, rate FROM products JOIN reviews ON products._id = reviews.productId WHERE products._id=${req.params.id}`
         //SELECT * FROM reviews AS r, products AS p WHERE r.product_id = p.id AND p.id=${productId}
         const response = await db.query(query);
         res.send(response);
